@@ -37,7 +37,7 @@ public:
 
   Derived &set_alpha(intsmall value) {
     m_alpha = value;
-    return get_return(*this);
+    return reinterpret_cast<Derived &>(*this);
   }
 
   Derived &calculate(intmedium in) override {
@@ -99,7 +99,7 @@ private:
 
 class HighPassFilterF32 : public SimpleFilter<HighPassFilterF32, float> {
 public:
-  HighPassFilterF32(float start, float r_value);
+  HighPassFilterF32(float start);
 
   HighPassFilterF32 &reset(float start);
   HighPassFilterF32 &set_r_value(float r_value);

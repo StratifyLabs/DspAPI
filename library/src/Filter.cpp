@@ -10,8 +10,7 @@ namespace printer {
 
 using namespace dsp;
 
-HighPassFilterF32::HighPassFilterF32(float start, float r_value) {
-  m_r_value = r_value;
+HighPassFilterF32::HighPassFilterF32(float start) {
   reset(start);
 }
 

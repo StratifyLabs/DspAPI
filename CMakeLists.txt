@@ -15,6 +15,3 @@ if(NOT DEFINED API_IS_SDK)
 endif()
 
 add_subdirectory(library library)
-if(SOS_IS_TEST)
-	add_subdirectory(tests tests)
-endif()

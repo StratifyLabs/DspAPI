@@ -12,16 +12,12 @@ namespace dsp {
 
 template <class Derived, typename FundamentalType> class SimpleFilter {
 public:
-  SimpleFilter() : m_present_value() {}
+  SimpleFilter(FundamentalType start) : m_present_value(start) {}
 
   virtual Derived &calculate(FundamentalType a) = 0;
   FundamentalType present_value() const { return m_present_value; }
 
 protected:
-  void set_present_value(const FundamentalType &value) {
-    m_present_value = value;
-  }
-
   FundamentalType m_present_value;
 };
 
@@ -30,9 +26,9 @@ protected:
 
 template <class Derived, typename intsmall, typename intmedium,
           typename intlarge>
-class LowPassFilter : public SimpleFilter<Derived, intmedium> {
+class LowPassFilter {
 public:
-  LowPassFilter(intmedium start) : m_average(start) {}
+  LowPassFilter(intmedium start) : m_present_value(start){}
   static intmedium small_max() { return 1 << (8 * sizeof(intsmall)); }
 
   Derived &set_alpha(intsmall value) {
@@ -40,22 +36,24 @@ public:
     return reinterpret_cast<Derived &>(*this);
   }
 
-  Derived &calculate(intmedium in) override {
+  Derived &calculate(intmedium in) {
     intlarge tmp0;
     tmp0 = (intlarge)in * (m_alpha) +
-           (intlarge)m_average * (small_max() - m_alpha);
-    m_average = (intmedium)(((intlarge)tmp0 + (intlarge)small_max()) >>
+           (intlarge)m_present_value * (small_max() - m_alpha);
+    m_present_value = (intmedium)(((intlarge)tmp0 + (intlarge)small_max()) >>
                             (sizeof(intsmall) * 8));
     return reinterpret_cast<Derived &>(*this);
   }
 
   Derived &reset(intmedium v) {
-    m_average = v;
+    m_present_value = v;
     return reinterpret_cast<Derived &>(*this);
   }
 
+  intmedium present_value() const { return m_present_value; }
+
 private:
-  intmedium m_average;
+  intmedium m_present_value;
   intsmall m_alpha;
 };
 

@@ -10,13 +10,13 @@ namespace printer {
 
 using namespace dsp;
 
-HighPassFilterF32::HighPassFilterF32(float start) {
+HighPassFilterF32::HighPassFilterF32(float start) : SimpleFilter(start) {
   reset(start);
 }
 
 HighPassFilterF32 &HighPassFilterF32::reset(float start) {
   m_last_input = start;
-  set_present_value(0.0f);
+  m_present_value = 0.0f;
   return *this;
 }
 
@@ -31,8 +31,7 @@ HighPassFilterF32 &HighPassFilterF32::calculate(float input) {
   return *this;
 }
 
-LowPassFilterF32::LowPassFilterF32(float start) : m_alpha(0.001f) {
-  m_present_value = start;
+LowPassFilterF32::LowPassFilterF32(float start) : SimpleFilter(start), m_alpha(0.001f) {
 }
 
 LowPassFilterF32 &LowPassFilterF32::calculate(float in) {
@@ -41,7 +40,7 @@ LowPassFilterF32 &LowPassFilterF32::calculate(float in) {
 }
 
 LowPassFilterF32 &LowPassFilterF32::reset(float start) {
-  set_present_value(start);
+  m_present_value = start;
   return *this;
 }
 

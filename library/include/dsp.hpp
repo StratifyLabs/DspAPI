@@ -12,6 +12,7 @@
 namespace dsp {}
 
 #include "dsp/Filter.hpp"
+#include "dsp/Lookup.hpp"
 
 using namespace dsp;
 

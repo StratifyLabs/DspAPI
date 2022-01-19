@@ -1,12 +1,8 @@
 // Copyright 2016-2021 Tyler Gilbert and Stratify Labs, Inc; see LICENSE.md
 
-#include <printer/Printer.hpp>
-
+#include "dsp/SimpleMovingAverage.hpp"
 #include "dsp/Filter.hpp"
 
-namespace printer {
-
-} // namespace printer
 
 using namespace dsp;
 

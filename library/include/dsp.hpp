@@ -13,6 +13,7 @@ namespace dsp {}
 
 #include "dsp/Filter.hpp"
 #include "dsp/Lookup.hpp"
+#include "dsp/SimpleMovingAverage.hpp"
 
 using namespace dsp;
 

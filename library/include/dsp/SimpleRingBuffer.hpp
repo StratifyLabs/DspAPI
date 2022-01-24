@@ -17,7 +17,7 @@ public:
   API_NO_DISCARD constexpr size_t count() const { return Count; }
 
   SimpleRingBuffer &push(Type value) {
-    buffer[m_head] = value;
+    m_buffer[m_head] = value;
     m_head++;
     if (m_head == Count) {
       m_head = 0;
@@ -25,17 +25,17 @@ public:
     return *this;
   }
 
-  Type back() const { return buffer[m_head]; }
+  Type back() const { return m_buffer[m_head]; }
   Type front() const { return at(0); }
 
   Type at(size_t offset) {
     const auto adjusted_offset
       = m_head > offset ? m_head - offset - 1 : Count + m_head - offset - 1;
-    return buffer[adjusted_offset];
+    return m_buffer[adjusted_offset];
   }
 
   SimpleRingBuffer &flush() {
-    for (auto &value : buffer) {
+    for (auto &value : m_buffer) {
       value = {};
     }
     m_head = 0;
@@ -44,7 +44,7 @@ public:
 
 private:
   size_t m_head = 0;
-  std::array<Type, Count> buffer;
+  std::array<Type, Count> m_buffer;
 };
 
 } // namespace dsp

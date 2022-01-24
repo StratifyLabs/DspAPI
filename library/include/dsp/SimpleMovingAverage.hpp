@@ -2,8 +2,8 @@
 // Created by Tyler Gilbert on 1/17/22.
 //
 
-#ifndef DSPAPI_DSP_SIMPLEMOVINGAVERAGE_HPP
-#define DSPAPI_DSP_SIMPLEMOVINGAVERAGE_HPP
+#ifndef DSPAPI_DSP_SIMPLE_MOVING_AVERAGE_HPP
+#define DSPAPI_DSP_SIMPLE_MOVING_AVERAGE_HPP
 
 #include "SimpleRingBuffer.hpp"
 
@@ -17,18 +17,18 @@ public:
 
   SimpleMovingAverage &calculate(Type input) {
     sum += input;
-    sum -= buffer.back();
-    buffer.push(input);
+    sum -= m_buffer.back();
+    m_buffer.push(input);
     return *this;
   }
 
   API_NO_DISCARD Type present_value() const { return sum / Count; }
 
 private:
-  SimpleRingBuffer<Type, Count> buffer;
+  SimpleRingBuffer<Type, Count> m_buffer;
   int32_t sum = 0;
 };
 
 } // namespace dsp
 
-#endif // DSPAPI_DSP_SIMPLEMOVINGAVERAGE_HPP
+#endif // DSPAPI_DSP_SIMPLE_MOVING_AVERAGE_HPP

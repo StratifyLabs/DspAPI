@@ -5,7 +5,7 @@
 #ifndef DSPAPI_DSP_SIMPLERINGBUFFER_HPP
 #define DSPAPI_DSP_SIMPLERINGBUFFER_HPP
 
-#include <api/api.hpp>
+#include <var/Array.hpp>
 
 namespace dsp {
 
@@ -44,7 +44,7 @@ public:
 
 private:
   size_t m_head = 0;
-  std::array<Type, Count> m_buffer;
+  var::Array<Type, Count> m_buffer;
 };
 
 } // namespace dsp

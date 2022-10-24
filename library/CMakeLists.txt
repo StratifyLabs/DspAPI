@@ -1,5 +1,4 @@
-
-set(LIBRARIES PrinterAPI API)
-
-api_add_api_library(${PROJECT_NAME} "${LIBRARIES}")
+api2_add_library(
+  NAME ${PROJECT_NAME}
+  DEPENDENCIES PrinterAPI API)
 
